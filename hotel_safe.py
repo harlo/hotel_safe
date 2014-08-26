@@ -58,7 +58,7 @@ def lockSafe():
 		local("tar cvzf %s %s" % (zip_, safe_dir))
 		local("echo %s | gpg --passphrase-fd 0 -c -o %s %s" % (pwd, gpg_, zip_))
 		
-		for cruft in [safe_dir, zip_]
+		for cruft in [safe_dir, zip_]:
 			local("rm -rf %s" % cruft)
 
 def unlockSafe():
@@ -76,16 +76,24 @@ def unlockSafe():
 	gpg_ = "%s.gpg" % zip_
 
 	with settings(warn_only=True):
-		local("echo %s | gpg --passphrase-fd 0 -o %s %s" % (pwd, zip_, gpg_))
-		local("tar -C %s xvzf %s" % (safe_dir, zip_))
+		local("echo %s | gpg --passphrase-fd 0 -d -o %s %s" % (pwd, zip_, gpg_))
+		local("tar -xvzf %s -C %s" % (zip_, safe_dir))
+	
+		archive = os.path.join("%(sd)s%(sd)s" % ({ 'sd' : safe_dir }), ".hotel_safe")
+		print "ARCHIVE AT %s" % archive
 
-		for _, _, assets in os.walk(os.path.join(safe_dir, ".hotel_safe")):
+		for _, assets, _ in os.walk(archive):
+			print assets
+
 			for asset in assets:
-				local("mv %s %s" % (asset, safe_dir))
+				local("mv %s %s" % (os.path.join(archive, asset), safe_dir))
 
-		for cruft in [os.path.join(safe_dir, ".hotel_safe"), zip_, gpg_]:
+			break
+
+		archive_home = [s for s in safe_dir.split("/") if s != ""][0]
+		for cruft in [os.path.join(safe_dir, archive_home), zip_, gpg_]:
 			local("rm -rf %s" % cruft)
-
+			
 def failOut():
 	print "usage: hotel_safe.py [lock|unlock|setup]"
 	exit(1)
