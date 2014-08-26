@@ -80,11 +80,8 @@ def unlockSafe():
 		local("tar -xvzf %s -C %s" % (zip_, safe_dir))
 	
 		archive = os.path.join("%(sd)s%(sd)s" % ({ 'sd' : safe_dir }), ".hotel_safe")
-		print "ARCHIVE AT %s" % archive
 
 		for _, assets, _ in os.walk(archive):
-			print assets
-
 			for asset in assets:
 				local("mv %s %s" % (os.path.join(archive, asset), safe_dir))
 
@@ -95,7 +92,7 @@ def unlockSafe():
 			local("rm -rf %s" % cruft)
 			
 def failOut():
-	print "usage: hotel_safe.py [lock|unlock|setup]"
+	print "usage: hotel_safe [lock|unlock|setup]"
 	exit(1)
 
 def getPwd(): return prompt("passphrase: ")
