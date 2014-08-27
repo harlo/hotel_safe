@@ -1,0 +1,5 @@
+After cloning, cd into the hotel_safe dir and run ./setup.sh.  An alias for hotel_safe should be added to your ~/.bash_aliases file.
+
+To use, simply cd into the directory containing the assets (FOLDERS ONLY, not files) you want locked in the safe.  Then, run `hotel_safe lock` and follow the instructions.
+
+To unlock, cd into the parent directory containing the safe file, and run `hotel_safe unlock`.
