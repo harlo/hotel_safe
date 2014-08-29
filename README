@@ -3,3 +3,5 @@ After cloning, cd into the hotel_safe dir and run ./setup.sh.  An alias for hote
 To use, simply cd into the directory containing the assets (FOLDERS ONLY, not files) you want locked in the safe.  Then, run `hotel_safe lock` and follow the instructions.
 
 To unlock, cd into the parent directory containing the safe file, and run `hotel_safe unlock`.
+
+hotel_safe will lock/unlock the same assets each time after you set up any folder.  If you'd like to change how a folder locks/unlocks itself, run `hotel_safe setup` from within that folder to change what you'd like.
