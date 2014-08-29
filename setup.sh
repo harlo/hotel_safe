@@ -1,4 +1,5 @@
 #! /bin/bash
+sudo apt-get install wipe
 pip install --upgrade -r requirements.txt
 
 cp ~/.bash_aliases ~/.bash_aliases.hotel_safe.bak

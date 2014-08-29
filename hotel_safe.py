@@ -59,7 +59,7 @@ def lockSafe():
 		local("echo %s | gpg --passphrase-fd 0 -c -o %s %s" % (pwd, gpg_, zip_))
 		
 		for cruft in [safe_dir, zip_]:
-			local("rm -rf %s" % cruft)
+			local("echo Yes | wipe -r %s" % cruft)
 
 def unlockSafe():
 	print "Unlocking your assets..."
@@ -89,7 +89,7 @@ def unlockSafe():
 
 		archive_home = [s for s in safe_dir.split("/") if s != ""][0]
 		for cruft in [os.path.join(safe_dir, archive_home), zip_, gpg_]:
-			local("rm -rf %s" % cruft)
+			local("echo Yes | wipe -r %s" % cruft)
 			
 def failOut():
 	print "usage: hotel_safe [lock|unlock|setup]"
