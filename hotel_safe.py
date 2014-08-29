@@ -39,7 +39,7 @@ def lockSafe():
 	try:
 		with open(os.path.join(this_dir(), ".manifest.%s.json" % md5_hash(os.getcwd())), 'rb') as m: manifest = json.loads(m.read())
 	except Exception as e:
-		print e
+		print "No manifest for this directory yet.  Let's create one!"
 		manifest = setupSafe()
 
 	print "Locking your assets..."
